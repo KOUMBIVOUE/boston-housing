@@ -6,6 +6,8 @@ import pandas as pd
 import joblib
 from sklearn.preprocessing import StandardScaler
 
+from pickle import PickleError
+
 app = Flask(__name__)
 LOG = create_logger(app)
 LOG.setLevel(logging.INFO)
@@ -32,8 +34,8 @@ def predict():
         clf = joblib.load("./Housing_price_model/LinearRegression.joblib")
         # clf = joblib.load("./Housing_price_model/StochasticGradientDescent.joblib")
         # clf = joblib.load("./Housing_price_model/GradientBoostingRegressor.joblib")
-    except:
-        LOG.info("JSON payload: %s json_payload")
+    except (FileNotFoundError, PickleError) as e:
+        LOG.error("Failed to load model: %s", e)
         return "Model not loaded"
 
     json_payload = request.json
