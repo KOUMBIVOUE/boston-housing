@@ -1,5 +1,7 @@
+.DS_Store
+.DS_Store?
+.ipynb_checkpoints
+.azure
+bin*
+lib*
 pyvenv*
-bin/
-lib/
-lib64
-__pycache__/
